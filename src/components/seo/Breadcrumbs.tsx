@@ -9,7 +9,7 @@ interface BreadcrumbItem {
 export function Breadcrumbs({ items }: { items: BreadcrumbItem[] }) {
   return (
     <nav aria-label="Breadcrumb" className="text-sm text-muted-foreground">
-      <ol className="flex items-center flex-wrap gap-1">
+      <ol className="flex items-center flex-wrap gap-1 list-none">
         {items.map((item, i) => (
           <li key={i} className="flex items-center gap-1">
             {i > 0 && <ChevronRight className="h-3 w-3 text-muted-foreground/50" />}
