@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   alternates: { canonical: SITE_URL },
   keywords: ['stock research', 'technical analysis', 'stock sentiment', 'AI forecasting', 'risk assessment', 'research brief', 'market intelligence'],
   openGraph: {
-    images: ['/icon-512.png'],
+    images: [{ url: '/og-cover.png', width: 1200, height: 630, alt: SITE_NAME }],
     title: `${SITE_NAME} — Evidence-Based Stock Research & Market Intelligence`,
     description: 'Technical analysis, news sentiment, AI forecasting, and risk assessment — connected in one Research Brief.',
     url: SITE_URL,
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     type: 'website',
   },
   twitter: {
-    images: ['/icon-512.png'],
+    images: ['/og-cover.png'],
     card: 'summary_large_image',
     title: `${SITE_NAME} — Evidence-Based Stock Research`,
     description: 'Technical analysis, news sentiment, AI forecasting, and risk assessment — connected in one Research Brief.',

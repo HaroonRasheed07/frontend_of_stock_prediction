@@ -36,24 +36,14 @@ export const metadata: Metadata = {
   },
   description: SITE_DESCRIPTION,
   robots: SEO_INDEXING_ENABLED ? 'index, follow' : 'noindex, nofollow',
-  icons: {
-    icon: [
-      { url: '/favicon.ico', sizes: '16x16 32x32 48x48 64x64', type: 'image/vnd.microsoft.icon' },
-      { url: '/favicon.png', type: 'image/png', sizes: '128x128' },
-      { url: '/icon-512.png', type: 'image/png', sizes: '512x512' },
-    ],
-    apple: [
-      { url: '/apple-icon.png', sizes: '180x180', type: 'image/png' },
-    ],
-  },
   openGraph: {
     title: `${SITE_NAME} | Evidence-Based Stock Research`,
     description: SITE_DESCRIPTION,
     images: [
       {
-        url: '/icon-512.png',
-        width: 512,
-        height: 512,
+        url: '/og-cover.png',
+        width: 1200,
+        height: 630,
         alt: SITE_NAME,
       },
     ],
@@ -64,7 +54,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: `${SITE_NAME} | Evidence-Based Stock Research`,
     description: SITE_DESCRIPTION,
-    images: ['/icon-512.png'],
+    images: ['/og-cover.png'],
   },
   metadataBase: new URL(SITE_URL),
 };
