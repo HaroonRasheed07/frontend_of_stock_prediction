@@ -9,6 +9,7 @@ import { useThemeStore } from '@/store/themeStore';
 import { rehydrateStockStore } from '@/store/stockStore';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
+import { StockSearch } from '@/components/common/StockSearch';
 
 const NAV_LINKS = [
   { href: '/', label: 'Home' },
@@ -37,6 +38,49 @@ export const Navbar = () => {
   useEffect(() => {
     setMobileOpen(false);
   }, [pathname]);
+
+  useEffect(() => {
+    const focusSearch = () => {
+      const inputs = Array.from(
+        document.querySelectorAll<HTMLInputElement>('input[aria-label="Search stocks"]')
+      );
+      const visible = inputs.find((el) => el.getBoundingClientRect().width > 0);
+      if (visible) {
+        visible.focus();
+        return;
+      }
+      setMobileOpen(true);
+      setTimeout(() => {
+        const next = Array.from(
+          document.querySelectorAll<HTMLInputElement>('input[aria-label="Search stocks"]')
+        ).find((el) => el.getBoundingClientRect().width > 0);
+        next?.focus();
+      }, 60);
+    };
+
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && mobileOpen) {
+        setMobileOpen(false);
+        return;
+      }
+      if (e.key !== '/' || e.ctrlKey || e.metaKey || e.altKey) return;
+      const target = e.target as HTMLElement | null;
+      if (
+        target &&
+        (target.tagName === 'INPUT' ||
+          target.tagName === 'TEXTAREA' ||
+          target.tagName === 'SELECT' ||
+          target.isContentEditable)
+      ) {
+        return;
+      }
+      e.preventDefault();
+      focusSearch();
+    };
+
+    window.addEventListener('keydown', onKeyDown);
+    return () => window.removeEventListener('keydown', onKeyDown);
+  }, [mobileOpen]);
 
   const isActive = (href: string) => {
     if (href === '/') return pathname === '/';
@@ -79,25 +123,27 @@ export const Navbar = () => {
             {/* Desktop Navigation */}
             <div className="hidden md:flex items-center gap-1">
               {NAV_LINKS.map((link) => (
-                <Link key={link.href} href={link.href}>
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    className={cn(
-                      'text-sm font-medium transition-colors duration-150',
-                      isActive(link.href)
-                        ? 'text-primary bg-primary/5'
-                        : 'text-muted-foreground hover:text-foreground hover:bg-muted/50'
-                    )}
-                  >
-                    {link.label}
-                  </Button>
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  aria-current={isActive(link.href) ? 'page' : undefined}
+                  className={cn(
+                    'rounded-lg px-3 py-2 text-sm font-medium transition-colors duration-150',
+                    isActive(link.href)
+                      ? 'text-primary bg-primary/5'
+                      : 'text-muted-foreground hover:text-foreground hover:bg-muted/50'
+                  )}
+                >
+                  {link.label}
                 </Link>
               ))}
             </div>
 
             {/* Right Section */}
             <div className="flex items-center gap-1">
+              <div className="hidden md:block w-56 lg:w-64 mr-1">
+                <StockSearch />
+              </div>
               <Button
                 variant="ghost"
                 size="icon"
@@ -143,8 +189,16 @@ export const Navbar = () => {
           />
           {/* Menu panel */}
           <div className="relative bg-card border-b border-border/60 shadow-lg px-4 py-4 space-y-1">
+            <div className="pb-2">
+              <StockSearch />
+            </div>
             {NAV_LINKS.map((link) => (
-              <Link key={link.href} href={link.href} onClick={() => setMobileOpen(false)}>
+              <Link
+                key={link.href}
+                href={link.href}
+                onClick={() => setMobileOpen(false)}
+                aria-current={isActive(link.href) ? 'page' : undefined}
+              >
                 <div
                   className={cn(
                     'flex items-center px-4 py-3 rounded-lg text-sm font-medium transition-colors',
