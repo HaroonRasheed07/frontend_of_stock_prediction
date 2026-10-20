@@ -1,5 +1,6 @@
 import { cache } from 'react';
 import type { MarketOverviewResponse, ForecastResponse } from './api';
+import { normalizeSentimentNewsDates } from './news-dates';
 
 const API_BASE = process.env.NEXT_PUBLIC_API_URL || "https://stock-predictions-b6yx.onrender.com";
 
@@ -64,25 +65,6 @@ async function postJson<T>(path: string, body: unknown, timeoutMs: number): Prom
 
 interface OverviewWithMeta extends MarketOverviewResponse {
   _cache_meta?: { updated_at?: number; status?: string; is_stale?: boolean };
-}
-
-const BASIC_ISO_DATETIME = /^(\d{4})(\d{2})(\d{2})T(\d{2})(\d{2})(\d{2})(?:\.\d+)?Z?$/;
-
-function normalizeSentimentNewsDates(overview: OverviewWithMeta): void {
-  const news = overview.sentiment?.news;
-  if (!Array.isArray(news)) return;
-  for (const item of news) {
-    if (!item || typeof item !== 'object') continue;
-    const raw = (item as { published_at?: unknown }).published_at;
-    if (typeof raw !== 'string' || raw.length === 0 || !Number.isNaN(Date.parse(raw))) continue;
-    const basic = BASIC_ISO_DATETIME.exec(raw.trim());
-    if (basic) {
-      (item as { published_at?: string }).published_at =
-        `${basic[1]}-${basic[2]}-${basic[3]}T${basic[4]}:${basic[5]}:${basic[6]}Z`;
-    } else {
-      delete (item as { published_at?: string }).published_at;
-    }
-  }
 }
 
 /**
