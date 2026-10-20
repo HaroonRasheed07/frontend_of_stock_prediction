@@ -1,4 +1,4 @@
-import { Inter } from 'next/font/google';
+import { Inter, Bricolage_Grotesque, Figtree } from 'next/font/google';
 import { Toaster } from '@/components/ui/toaster';
 import { Toaster as Sonner } from '@/components/ui/sonner';
 import { TooltipProvider } from '@/components/ui/tooltip';
@@ -15,6 +15,18 @@ const inter = Inter({
   subsets: ['latin'],
   display: 'swap',
   variable: '--font-inter',
+});
+
+const bricolage = Bricolage_Grotesque({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-bricolage',
+});
+
+const figtree = Figtree({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-figtree',
 });
 
 export const metadata: Metadata = {
@@ -63,15 +75,19 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" suppressHydrationWarning className={inter.variable}>
+    <html
+      lang="en"
+      suppressHydrationWarning
+      className={`${inter.variable} ${bricolage.variable} ${figtree.variable}`}
+    >
       <head>
-        {/* Pre-paint theme: apply the persisted theme before first paint so
-            dark-mode users never see a light flash (FOUC). Mirrors the
-            zustand persist shape stored under 'insightforge-theme'. */}
+        {/* Pre-paint theme: stored choice wins; otherwise follow the system
+            setting before first paint (FOUC-free). Mirrors the zustand
+            persist shape stored under 'insightforge-theme'. */}
         <script
           dangerouslySetInnerHTML={{
             __html:
-              "(function(){try{var raw=localStorage.getItem('insightforge-theme');var theme=raw?(JSON.parse(raw).state||{}).theme:null;var dark=theme!=='light';document.documentElement.classList.toggle('dark',dark);}catch(e){document.documentElement.classList.add('dark');}})();",
+              "(function(){var dark=true;try{var raw=localStorage.getItem('insightforge-theme');var t=raw?(JSON.parse(raw).state||{}).theme:null;if(t==='light'||t==='dark'){dark=t==='dark';}else{dark=window.matchMedia?window.matchMedia('(prefers-color-scheme: dark)').matches:true;}}catch(e){try{dark=window.matchMedia?window.matchMedia('(prefers-color-scheme: dark)').matches:true;}catch(e2){dark=true;}}document.documentElement.classList.toggle('dark',dark);})();",
           }}
         />
         <OrganizationJsonLd />
