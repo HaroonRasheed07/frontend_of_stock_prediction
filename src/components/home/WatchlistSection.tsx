@@ -170,7 +170,7 @@ export function WatchlistSection() {
           <p className="mt-3 flex items-center gap-2 text-xs text-muted-foreground">
             <Clock className="h-3 w-3" aria-hidden="true" />
             Quotes are refreshing for your watchlist.
-            <span className="rounded-full border border-warning/30 bg-warning/10 px-2 py-0.5 font-semibold text-warning">
+            <span className="pill pill-amber">
               data delayed
             </span>
           </p>

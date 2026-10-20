@@ -49,8 +49,8 @@ function Rail({
     <div className={cn('flex items-center gap-2 rounded-lg border px-3 py-2', tones[tone])}>
       <span aria-hidden="true">{icon}</span>
       <span className="min-w-0">
-        <span className="block text-[10px] font-medium uppercase tracking-wide opacity-80">{label}</span>
-        <span className="block truncate text-xs font-bold">{value}</span>
+        <span className="block text-[10px] font-medium uppercase tracking-wide !text-foreground/70">{label}</span>
+        <span className="block truncate text-xs font-bold !text-foreground">{value}</span>
       </span>
     </div>
   );

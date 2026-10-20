@@ -31,7 +31,7 @@ function Delayed({ what }: { what: string }) {
   return (
     <p className="flex items-center gap-2 text-sm text-muted-foreground">
       {what} is refreshing for this snapshot.
-      <span className="rounded-full border border-warning/30 bg-warning/10 px-2 py-0.5 text-[11px] font-semibold text-warning">
+      <span className="pill pill-amber">
         data delayed
       </span>
     </p>
@@ -65,8 +65,8 @@ function BriefRail({ label, value, tone }: { label: string; value: string; tone:
   return (
     <div className={`flex items-center gap-2 rounded-lg border px-3 py-2 ${TONE_CLS[tone]}`}>
       <span className="min-w-0">
-        <span className="block text-[10px] font-medium uppercase tracking-wide opacity-80">{label}</span>
-        <span className="block truncate text-xs font-bold">{value}</span>
+        <span className="block text-[10px] font-medium uppercase tracking-wide !text-foreground/70">{label}</span>
+        <span className="block truncate text-xs font-bold !text-foreground">{value}</span>
       </span>
     </div>
   );

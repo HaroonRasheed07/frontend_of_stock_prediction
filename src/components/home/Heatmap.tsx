@@ -7,10 +7,10 @@ import type { DiscoverStock } from '@/lib/api';
 function tileStyle(changePercent: number): React.CSSProperties {
   const ch = typeof changePercent === 'number' && isFinite(changePercent) ? changePercent : 0;
   const t = Math.min(Math.abs(ch) / 4, 1);
-  const alpha = 0.12 + t * 0.7;
+  const alpha = 0.12 + t * 0.43;
   return ch >= 0
-    ? { backgroundColor: `rgba(22, 163, 74, ${alpha.toFixed(3)})` }
-    : { backgroundColor: `rgba(220, 38, 38, ${alpha.toFixed(3)})` };
+    ? { backgroundColor: `rgba(21, 128, 61, ${alpha.toFixed(3)})` }
+    : { backgroundColor: `rgba(185, 28, 28, ${alpha.toFixed(3)})` };
 }
 
 /** Section 8 — sector-grouped daily-move heatmap; every tile links to its brief. */
@@ -28,7 +28,7 @@ export function Heatmap({ stocks, available }: { stocks: DiscoverStock[]; availa
         </h2>
         <div className="mt-4 rounded-xl border border-border/60 bg-card p-6 text-sm text-muted-foreground">
           The heatmap refreshes with each scan.
-          <span className="ml-2 inline-block rounded-full border border-warning/30 bg-warning/10 px-2 py-0.5 text-[11px] font-semibold text-warning">
+          <span className="pill pill-amber">
             data delayed
           </span>
         </div>
@@ -94,10 +94,10 @@ export function Heatmap({ stocks, available }: { stocks: DiscoverStock[]; availa
                 className="flex aspect-square flex-col items-center justify-center rounded-md border border-black/10 text-center transition-transform hover:scale-[1.04]"
                 style={tileStyle(s.changePercent)}
               >
-                <span className="text-[11px] font-bold leading-tight text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.55)]">
+                <span className="text-[11px] font-bold leading-tight text-neutral-950 dark:text-white">
                   {s.ticker}
                 </span>
-                <span className="text-[9px] font-semibold leading-tight text-white/90 drop-shadow-[0_1px_2px_rgba(0,0,0,0.55)]">
+                <span className="text-[9px] font-semibold leading-tight text-neutral-950/80 dark:text-white/90">
                   {formatPct(s.changePercent)}
                 </span>
               </Link>

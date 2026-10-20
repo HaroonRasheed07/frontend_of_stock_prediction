@@ -71,13 +71,19 @@ export default function RootLayout({
       className={`${inter.variable} ${bricolage.variable} ${figtree.variable}`}
     >
       <head>
+        {/* Workaround for vercel/next.js#62332: next/font preloads are not
+            emitted, so the latin subsets are preloaded manually (content-hashed
+            filenames from the font pipeline). */}
+        <link rel="preload" as="font" type="font/woff2" crossOrigin="anonymous" href="/_next/static/media/e4af272ccee01ff0-s.p.woff2" />
+        <link rel="preload" as="font" type="font/woff2" crossOrigin="anonymous" href="/_next/static/media/9d5a263311222317-s.p.woff2" />
+        <link rel="preload" as="font" type="font/woff2" crossOrigin="anonymous" href="/_next/static/media/de42cfb9a3b980ae-s.p.woff2" />
         {/* Pre-paint theme: stored choice wins; otherwise follow the system
             setting before first paint (FOUC-free). Mirrors the zustand
             persist shape stored under 'insightforge-theme'. */}
         <script
           dangerouslySetInnerHTML={{
             __html:
-              "(function(){var dark=true;try{var raw=localStorage.getItem('insightforge-theme');var t=raw?(JSON.parse(raw).state||{}).theme:null;if(t==='light'||t==='dark'){dark=t==='dark';}else{dark=window.matchMedia?window.matchMedia('(prefers-color-scheme: dark)').matches:true;}}catch(e){try{dark=window.matchMedia?window.matchMedia('(prefers-color-scheme: dark)').matches:true;}catch(e2){dark=true;}}document.documentElement.classList.toggle('dark',dark);})();",
+              "(function(){var dark=true;try{var raw=localStorage.getItem('insightforge-theme');var t=raw?(JSON.parse(raw).state||{}).theme:null;if(t==='light'||t==='dark'){dark=t==='dark';}else{dark=window.matchMedia?window.matchMedia('(prefers-color-scheme: dark)').matches:true;}}catch(e){try{dark=window.matchMedia?window.matchMedia('(prefers-color-scheme: dark)').matches:true;}catch(e2){dark=true;}}document.documentElement.classList.toggle('dark',dark);try{if(localStorage.getItem('sv-analytics-consent')||(navigator.globalPrivacyControl===true)){document.documentElement.setAttribute('data-sv-hide-consent','');}}catch(e3){}})();",
           }}
         />
         <OrganizationJsonLd />
@@ -88,10 +94,10 @@ export default function RootLayout({
           <TooltipProvider>
             <Toaster />
             <Sonner />
+            <AnalyticsConsent />
             <LayoutWrapper>{children}</LayoutWrapper>
             <Analytics />
             <SpeedInsights />
-            <AnalyticsConsent />
           </TooltipProvider>
         </div>
       </body>

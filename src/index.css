@@ -482,18 +482,30 @@
 .pill-bull {
   background: hsl(var(--success-bg));
   border-color: hsl(var(--success) / 0.3);
+  color: #15803d;
+}
+
+.dark .pill-bull {
   color: hsl(var(--success));
 }
 
 .pill-bear {
   background: hsl(var(--destructive-bg));
   border-color: hsl(var(--destructive) / 0.3);
+  color: #b91c1c;
+}
+
+.dark .pill-bear {
   color: hsl(var(--destructive));
 }
 
 .pill-amber {
   background: hsl(var(--warning-bg));
   border-color: hsl(var(--warning) / 0.3);
+  color: #b45309;
+}
+
+.dark .pill-amber {
   color: hsl(var(--warning));
 }
 
@@ -501,6 +513,12 @@
   background: hsl(var(--secondary));
   border-color: hsl(var(--border));
   color: hsl(var(--muted-foreground));
+}
+
+/* Consent banner is SSR'd for first-paint (LCP); decided visitors get it
+   hidden by the pre-paint script before anything paints. */
+html[data-sv-hide-consent] [data-sv-consent-banner] {
+  display: none;
 }
 
 html {

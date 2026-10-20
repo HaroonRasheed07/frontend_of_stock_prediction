@@ -59,7 +59,7 @@ export default async function Home() {
   const home = await getHomeData();
 
   return (
-    <div className="sv-scope">
+    <main className="sv-scope">
       {/* 1b. Market strip — indices, status, freshness */}
       <MarketStrip
         indexes={home.indexes}
@@ -71,7 +71,7 @@ export default async function Home() {
       {/* 2. Hero — heading, primary search, brief card + price chart */}
       <section id="analyze" aria-labelledby="hero-heading" className="container mx-auto px-4 pt-8 md:pt-12">
         <div className="max-w-3xl">
-          <h1 id="hero-heading" className="text-2xl font-bold leading-tight sm:text-3xl md:text-4xl">
+          <h1 id="hero-heading" className="text-4xl font-bold leading-tight md:text-5xl">
             See what the signals say, and why they disagree.
           </h1>
           <p className="mt-3 text-sm text-muted-foreground md:text-base">
@@ -155,6 +155,6 @@ export default async function Home() {
       {/* 10/11. Learn teasers + trust framing (footer follows from the layout) */}
       <LearnTeasers />
       <TrustStrip />
-    </div>
+    </main>
   );
 }
