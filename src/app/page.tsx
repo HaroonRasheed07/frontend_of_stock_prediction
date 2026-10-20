@@ -105,6 +105,9 @@ export default async function Home() {
         breadth={home.breadth}
         discoverAvailable={home.discoverAvailable}
         updatedMinutesAgo={home.updatedMinutesAgo}
+        disagreeCount={home.disagreements.length}
+        highRiskCount={home.highRiskCount}
+        modelAvailable={home.modelAvailable}
       />
 
       {/* 5. Disagreement cards */}

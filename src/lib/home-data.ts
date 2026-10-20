@@ -125,6 +125,7 @@ export interface HomeData {
   chips: Array<{ ticker: string; name: string; price: number; changePercent: number }>;
   disagreements: DisagreeCardData[];
   modelAvailable: boolean;
+  highRiskCount: number;
   updatedMinutesAgo: number | null;
   indicesDelayed: boolean;
 }
@@ -549,6 +550,7 @@ export async function getHomeData(): Promise<HomeData> {
     chips,
     disagreements: disagreement.cards,
     modelAvailable: disagreement.modelAvailable,
+    highRiskCount: Object.values(stocks).filter((s) => (s.risk || '').toLowerCase() === 'high').length,
     updatedMinutesAgo: updated,
     indicesDelayed: idx.length === 0,
   };
