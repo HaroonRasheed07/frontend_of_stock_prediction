@@ -111,11 +111,7 @@ export default async function Home() {
       />
 
       {/* 5. Disagreement cards */}
-      <DisagreementSection
-        cards={home.disagreements}
-        modelAvailable={home.modelAvailable}
-        discoverAvailable={home.discoverAvailable}
-      />
+      <DisagreementSection cards={home.disagreements} />
 
       {/* 6. Scan tabs */}
       <ScanTabs scan={home.scan} discoverAvailable={home.discoverAvailable} />

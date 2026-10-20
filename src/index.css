@@ -418,6 +418,8 @@
   --chart-4: 39 79% 33.7%;
   --chart-5: 215 14% 41.4%;
   --radius: 0.875rem;
+  --spark-up: #13805a;
+  --spark-down: #c23b31;
   background-color: hsl(var(--background));
   color: hsl(var(--foreground));
   font-family: var(--font-figtree), system-ui, -apple-system, sans-serif;
@@ -447,6 +449,8 @@
   --chart-3: 5 100% 72%;
   --chart-4: 39 75% 62.9%;
   --chart-5: 217 21% 64.9%;
+  --spark-up: #3fcb92;
+  --spark-down: #ff7b70;
 }
 
 .sv-scope :is(h1, h2, h3, h4, h5, h6) {
