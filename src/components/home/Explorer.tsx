@@ -164,7 +164,8 @@ export function Explorer({ bundle }: { bundle: HeroBundle }) {
       const t = detail?.tab as TabKey | undefined;
       if (t && TABS.some((x) => x.key === t)) {
         setTab(t);
-        document.getElementById('explore')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        document.getElementById('explore')?.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
       }
     };
     window.addEventListener('sv:explore-tab', handler);

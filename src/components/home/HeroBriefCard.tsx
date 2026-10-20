@@ -184,7 +184,8 @@ export function HeroBriefCard({
     trackEvent('search_usage', { source: 'hero_cta' });
     const el = document.getElementById('hero-search');
     if (el) {
-      el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      el.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'center' });
       (el as HTMLInputElement).focus({ preventScroll: true });
     }
   };
