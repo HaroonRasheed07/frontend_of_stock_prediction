@@ -17,6 +17,8 @@ interface StockSearchProps {
   label?: string;
   className?: string;
   autoFocus?: boolean;
+  /** Stable input id (unique when multiple searches render on one page). */
+  inputId?: string;
 }
 
 /**
@@ -30,6 +32,7 @@ export function StockSearch({
   label = 'Search stocks',
   className,
   autoFocus,
+  inputId,
 }: StockSearchProps) {
   const router = useRouter();
   const [query, setQuery] = useState('');
@@ -40,8 +43,8 @@ export function StockSearch({
   const [activeIndex, setActiveIndex] = useState(-1);
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const reactId = useId();
-  const inputId = `stock-search-input-${reactId}`;
-  const listId = `stock-search-results-${reactId}`;
+  const searchId = inputId ?? `stock-search-input-${reactId}`;
+  const listId = `${searchId}-results`;
 
   const directSymbol = isValidSymbolPath(query.trim()) ? query.trim().toUpperCase() : null;
   // Offer a direct research link only when the provider returned nothing —
@@ -131,13 +134,13 @@ export function StockSearch({
 
   return (
     <div className={cn('relative w-full', className)}>
-      <label htmlFor={inputId} className="sr-only">
+      <label htmlFor={searchId} className="sr-only">
         {label}
       </label>
       <div className="relative">
         <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
         <Input
-          id={inputId}
+          id={searchId}
           value={query}
           onChange={(e) => handleInput(e.target.value)}
           onKeyDown={handleKeyDown}

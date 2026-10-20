@@ -462,6 +462,10 @@
   padding-right: 1rem;
 }
 
+.sv-scope .container {
+  max-width: 1160px;
+}
+
 .sv-scope :focus-visible {
   outline: 2px solid hsl(var(--ring));
   outline-offset: 2px;

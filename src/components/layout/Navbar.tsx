@@ -12,13 +12,11 @@ import { cn } from '@/lib/utils';
 import { StockSearch } from '@/components/common/StockSearch';
 
 const NAV_LINKS = [
-  { href: '/', label: 'Home' },
-  { href: '/markets/stock', label: 'Stock Analysis' },
-  { href: '/markets/discover', label: 'Discover' },
+  { href: '/markets/brief', label: 'Stock Brief' },
+  { href: '/markets/stock/technical', label: 'Technical' },
+  { href: '/markets/stock/sentiment', label: 'News Sentiment' },
+  { href: '/markets/stock/forecast', label: 'Forecast' },
   { href: '/learn', label: 'Learn' },
-  { href: '/markets/stock/watchlist', label: 'Watchlist' },
-  { href: '/about', label: 'About' },
-  { href: '/contact', label: 'Contact' },
 ];
 
 export const Navbar = () => {
@@ -83,16 +81,16 @@ export const Navbar = () => {
   }, [mobileOpen]);
 
   const isActive = (href: string) => {
-    if (href === '/') return pathname === '/';
-    // Stock Analysis should highlight only on its overview page — not on
-    // watchlist/technical/sentiment/forecast, which have their own items.
-    if (href === '/markets/stock') return pathname === href;
-    return pathname === href || pathname.startsWith(`${href}/`);
+    if (href === '/learn') return pathname === '/learn' || pathname.startsWith('/learn/');
+    return pathname === href;
   };
 
   return (
     <>
-      <nav className="sticky top-0 z-50 w-full border-b border-border/60 bg-card/95 backdrop-blur-xl">
+      <nav
+        className="sticky top-0 z-50 w-full border-b border-border/60 bg-card/95 backdrop-blur-xl"
+        style={{ paddingTop: 'env(safe-area-inset-top)' }}
+      >
         <div className="mx-auto max-w-[1400px] px-4 md:px-6 lg:px-8">
           <div className="flex h-14 items-center justify-between md:h-16">
             {/* Logo */}
@@ -141,7 +139,8 @@ export const Navbar = () => {
 
             {/* Right Section */}
             <div className="flex items-center gap-1">
-              <div className="hidden md:block w-56 lg:w-64 mr-1">
+              {/* Instant search (large screens) */}
+              <div className="hidden lg:block w-56 xl:w-64 mr-1">
                 <StockSearch />
               </div>
               <Button
@@ -163,7 +162,7 @@ export const Navbar = () => {
                 variant="ghost"
                 size="icon"
                 onClick={() => setMobileOpen(!mobileOpen)}
-                className="h-9 w-9 rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted/50 md:hidden"
+                className="h-9 w-9 rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted/50 lg:hidden"
                 aria-label={mobileOpen ? 'Close navigation menu' : 'Open navigation menu'}
                 aria-expanded={mobileOpen}
               >
@@ -177,7 +176,7 @@ export const Navbar = () => {
       {/* Mobile slide-down menu */}
       {mobileOpen && (
         <div
-          className="fixed inset-0 top-14 z-40 md:hidden"
+          className="fixed inset-0 top-[calc(3.5rem+env(safe-area-inset-top))] z-40 lg:hidden"
           role="dialog"
           aria-modal="true"
           aria-label="Navigation menu"
